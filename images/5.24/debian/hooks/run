@@ -14,7 +14,7 @@ SOURCE_COMMIT=$(git rev-parse --short HEAD)
 export COMMIT_MSG
 COMMIT_MSG=$(git log -1 --format=%s)
 
-export DOCKER_REPO=monogramm/docker-osrm-backend
+export DOCKER_REPO=${DOCKER_REPO:-monogramm/docker-osrm-backend}
 export DOCKERFILE_PATH=Dockerfile
 export DOCKER_TAG=5.24
 

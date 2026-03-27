@@ -39,12 +39,13 @@ jobs:
           cd images/${{ matrix.version }}/${{ matrix.variant }}
           ./hooks/run test ${{ matrix.variant }}
 
-      #- name: Execute CI push hooks
-      #  id: docker_push
-      #  run: |
-      #    # Export variables to login and push to GitHub Container Registry
-      #    #export DOCKER_REGISTRY=ghcr.io
-      #    #export DOCKER_LOGIN=${{ github.repository_owner }}
-      #    #export DOCKER_PASSWORD=${{ secrets.GITHUB_REGISTRY_TOKEN }}
-      #    cd images/${{ matrix.version }}/${{ matrix.variant }}
-      #    ./hooks/run push ${{ matrix.variant }}
+      - name: Execute CI push hooks
+        id: docker_push
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        env:
+          DOCKER_LOGIN: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
+          DOCKER_REPO: cgallardo/docker-osrm-backend
+        run: |
+          cd images/${{ matrix.version }}/${{ matrix.variant }}
+          ./hooks/run push ${{ matrix.variant }}
