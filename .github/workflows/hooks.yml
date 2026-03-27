@@ -13,6 +13,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      DOCKER_REPO: cgallardo/docker-osrm-backend
     strategy:
       matrix:
         version: ['5.22', '5.23']
@@ -46,7 +48,6 @@ jobs:
         env:
           DOCKER_LOGIN: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
-          DOCKER_REPO: cgallardo/docker-osrm-backend
         run: |
           cd images/${{ matrix.version }}/${{ matrix.variant }}
           ./hooks/run push ${{ matrix.variant }}
