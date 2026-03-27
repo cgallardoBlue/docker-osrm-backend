@@ -3,6 +3,7 @@ FROM osrm/osrm-backend:latest
 ENV OSRM_ALGORITHM=mld \
     OSRM_THREADS=2 \
     OSRM_PORT=5000 \
+    OSRM_MAX_TABLE_SIZE=1000 \
     OSRM_PROFILE=/opt/car.lua \
     OSRM_MAP_NAME= \
     OSRM_GEOFABRIK_PATH= \

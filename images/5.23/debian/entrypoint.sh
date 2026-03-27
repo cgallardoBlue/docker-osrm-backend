@@ -165,6 +165,7 @@ routed() {
         nohup osrm-routed \
             --port "${OSRM_PORT}" \
             --threads "${OSRM_THREADS}" \
+            --max-table-size "${OSRM_MAX_TABLE_SIZE}" \
             --algorithm "${OSRM_ALGORITHM}" \
             "/data/${OSRM_MAP_NAME}.osrm" > /data/osrm.logs 2>&1 &
         echo $! > /data/osrm.pid
@@ -174,6 +175,7 @@ routed() {
         osrm-routed \
             --port "${OSRM_PORT}" \
             --threads "${OSRM_THREADS}" \
+            --max-table-size "${OSRM_MAX_TABLE_SIZE}" \
             --algorithm "${OSRM_ALGORITHM}" \
             "/data/${OSRM_MAP_NAME}.osrm"
     fi
