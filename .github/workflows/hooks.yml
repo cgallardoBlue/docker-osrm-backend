@@ -2,6 +2,7 @@
 name: Docker Image CI
 
 on:
+  workflow_dispatch:
   pull_request:
   push:
     branches:
@@ -41,7 +42,7 @@ jobs:
 
       - name: Execute CI push hooks
         id: docker_push
-        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        if: (github.event_name == 'push' && github.ref == 'refs/heads/master') || github.event_name == 'workflow_dispatch'
         env:
           DOCKER_LOGIN: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
