@@ -15,10 +15,10 @@ jobs:
     environment: master
     env:
       DOCKER_REPO: cgallardo/docker-osrm-backend
-      DOCKER_TAG: render-latest
+      DOCKER_TAG: '5.24'
     strategy:
       matrix:
-        version: ['5.22', '5.23']
+        version: ['5.24']
         variant: ['debian']
 
     steps:
