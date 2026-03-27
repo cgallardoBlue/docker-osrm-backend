@@ -29,7 +29,7 @@ for file in docker-compose*.test.yml; do
     compose_cmd -f "${file}" ps
     #docker-compose --no-ansi -f "${file}" logs --no-color "osrm-backend-db"
     compose_cmd -f "${file}" logs --no-color "osrm-backend"
-    compose_cmd -f "${file}" ps "sut" | grep "Exit 0" || exit 1
+    compose_cmd -f "${file}" ps -a "sut" | grep -E "Exit 0|Exited \(0\)" || exit 1
     compose_cmd -f "${file}" down
 
     # Test container restart
@@ -38,7 +38,7 @@ for file in docker-compose*.test.yml; do
     compose_cmd -f "${file}" ps
     #docker-compose --no-ansi -f "${file}" logs --no-color "osrm-backend-db"
     compose_cmd -f "${file}" logs --no-color "osrm-backend"
-    compose_cmd -f "${file}" ps "sut" | grep "Exit 0" || exit 1
+    compose_cmd -f "${file}" ps -a "sut" | grep -E "Exit 0|Exited \(0\)" || exit 1
     compose_cmd -f "${file}" down -v
 
 done
