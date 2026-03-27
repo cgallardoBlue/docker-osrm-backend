@@ -11,6 +11,9 @@ ENV OSRM_ALGORITHM=mld \
 
 # Add requirements and install application
 RUN set -ex; \
+    sed -ri 's|deb.debian.org/debian|archive.debian.org/debian|g; s|security.debian.org/debian-security|archive.debian.org/debian-security|g' /etc/apt/sources.list; \
+    sed -ri '/stretch-updates/d' /etc/apt/sources.list; \
+    printf 'Acquire::Check-Valid-Until "0";\nAcquire::AllowInsecureRepositories "1";\n' > /etc/apt/apt.conf.d/99archive; \
     apt-get update -q; \
     apt-get install -y --allow-unauthenticated \
         curl \
