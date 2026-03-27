@@ -8,28 +8,37 @@ if [ "${DOCKERFILE_PATH}" = "Dockerfile.develop" ] || [ "${DOCKERFILE_PATH}" = "
     exit 0
 fi
 
+if command -v docker-compose >/dev/null 2>&1; then
+    compose_cmd() { docker-compose --no-ansi "$@"; }
+elif docker compose version >/dev/null 2>&1; then
+    compose_cmd() { docker compose --ansi never "$@"; }
+else
+    echo "Docker Compose is not available (docker-compose or docker compose)."
+    exit 1
+fi
+
 for file in docker-compose*.test.yml; do
 
     echo "Starting Test in ${file}..."
 
     # Build test container
-    docker-compose --no-ansi -f "${file}" build sut
+    compose_cmd -f "${file}" build sut
     # Test container run
-    docker-compose --no-ansi -f "${file}" up -d && sleep 60
-    docker-compose --no-ansi -f "${file}" logs -f "sut"
-    docker-compose --no-ansi -f "${file}" ps
+    compose_cmd -f "${file}" up -d && sleep 60
+    compose_cmd -f "${file}" logs -f "sut"
+    compose_cmd -f "${file}" ps
     #docker-compose --no-ansi -f "${file}" logs --no-color "osrm-backend-db"
-    docker-compose --no-ansi -f "${file}" logs --no-color "osrm-backend"
-    docker-compose --no-ansi -f "${file}" ps "sut" | grep "Exit 0" || exit 1
-    docker-compose --no-ansi -f "${file}" down
+    compose_cmd -f "${file}" logs --no-color "osrm-backend"
+    compose_cmd -f "${file}" ps "sut" | grep "Exit 0" || exit 1
+    compose_cmd -f "${file}" down
 
     # Test container restart
-    docker-compose --no-ansi -f "${file}" up -d && sleep 60
-    docker-compose --no-ansi -f "${file}" logs -f "sut"
-    docker-compose --no-ansi -f "${file}" ps
+    compose_cmd -f "${file}" up -d && sleep 60
+    compose_cmd -f "${file}" logs -f "sut"
+    compose_cmd -f "${file}" ps
     #docker-compose --no-ansi -f "${file}" logs --no-color "osrm-backend-db"
-    docker-compose --no-ansi -f "${file}" logs --no-color "osrm-backend"
-    docker-compose --no-ansi -f "${file}" ps "sut" | grep "Exit 0" || exit 1
-    docker-compose --no-ansi -f "${file}" down -v
+    compose_cmd -f "${file}" logs --no-color "osrm-backend"
+    compose_cmd -f "${file}" ps "sut" | grep "Exit 0" || exit 1
+    compose_cmd -f "${file}" down -v
 
 done
