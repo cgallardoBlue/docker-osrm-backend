@@ -15,6 +15,7 @@ jobs:
     environment: master
     env:
       DOCKER_REPO: cgallardo/docker-osrm-backend
+      DOCKER_TAG: render-latest
     strategy:
       matrix:
         version: ['5.22', '5.23']

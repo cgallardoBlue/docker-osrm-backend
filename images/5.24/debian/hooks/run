@@ -18,7 +18,7 @@ export BUILD_DATE=${BUILD_DATE:-$(date -u +'%Y-%m-%dT%H:%M:%SZ')}
 
 export DOCKER_REPO=${DOCKER_REPO:-monogramm/docker-osrm-backend}
 export DOCKERFILE_PATH=Dockerfile
-export DOCKER_TAG=5.24
+export DOCKER_TAG=${DOCKER_TAG:-5.24}
 
 if [ -n "${DOCKER_REGISTRY}" ]; then
     export IMAGE_NAME=${DOCKER_REGISTRY}/${DOCKER_REPO}:${DOCKER_TAG}

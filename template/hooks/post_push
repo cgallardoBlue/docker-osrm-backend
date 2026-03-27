@@ -9,16 +9,8 @@ else
     export DOCKER_BASE_IMAGE=${DOCKER_REPO}
 fi
 
+# Push main tag
 docker push "$IMAGE_NAME"
-
-if [ -f ./.dockertags ]; then
-    for tag in $(cat ./.dockertags); do
-        if [ ! "${tag}" = "${DOCKER_TAG}" ]; then
-            docker tag "$IMAGE_NAME" "$DOCKER_BASE_IMAGE:$tag"
-            docker push "$DOCKER_BASE_IMAGE:$tag"
-        fi
-    done
-fi
 
 # Push image with tag set to commit hash
 docker tag "$IMAGE_NAME" "$DOCKER_BASE_IMAGE:$SOURCE_COMMIT"
