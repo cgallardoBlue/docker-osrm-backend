@@ -40,6 +40,8 @@ OSRM_ALGORITHM=mld
 OSRM_THREADS=2
 
 OSRM_PORT=5000
+
+## Maximum number of coordinates accepted by the /table endpoint
 OSRM_MAX_TABLE_SIZE=1000
 
 ## Extraction profile
