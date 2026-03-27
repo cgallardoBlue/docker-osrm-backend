@@ -1,5 +1,3 @@
-version: "2.3"
-
 services:
   osrm-backend:
     # For production, download prebuilt image

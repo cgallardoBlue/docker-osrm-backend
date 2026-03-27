@@ -9,7 +9,7 @@ if [ "${DOCKERFILE_PATH}" = "Dockerfile.develop" ] || [ "${DOCKERFILE_PATH}" = "
 fi
 
 if command -v docker-compose >/dev/null 2>&1; then
-    compose_cmd() { docker-compose --no-ansi "$@"; }
+    compose_cmd() { docker-compose --ansi never "$@"; }
 elif docker compose version >/dev/null 2>&1; then
     compose_cmd() { docker compose --ansi never "$@"; }
 else
