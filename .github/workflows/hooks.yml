@@ -1,4 +1,3 @@
-
 name: Docker Image CI
 
 on:
@@ -13,6 +12,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: master
     env:
       DOCKER_REPO: cgallardo/docker-osrm-backend
     strategy:
